@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  mongo:
+    image: mongo:6
+    container_name: support-mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    logging:
+      options:
+        max-size: 1g
