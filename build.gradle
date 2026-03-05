@@ -20,8 +20,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation("org.projectlombok:lombok:1.18.42")
     testImplementation 'org.springframework.boot:spring-boot-starter-mongodb-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
