@@ -1,5 +1,6 @@
-package com.nix.education.config;
+package com.nix.education.config.security;
 
+import com.nix.education.config.JwtKeycloakRoleConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -18,35 +18,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/tickets")
 @AllArgsConstructor
+@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_SUPPORT')")
 public class TicketController {
   private final TicketService ticketService;
 
   @PostMapping("/create")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket create(@RequestBody Ticket ticket) {
     return ticketService.createTicket(ticket);
   }
 
   @PutMapping("/update/{ticketId}")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket update(@RequestBody Ticket ticket, @PathVariable("ticketId") String ticketId) {
     return ticketService.updateTicket(ticketId, ticket);
   }
 
   @DeleteMapping("/delete/{ticketId}")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public void delete(@PathVariable("ticketId") String ticketId) {
     ticketService.deleteTicket(ticketId);
   }
 
   @GetMapping("/{ticketId}")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket getTicketById(@PathVariable("ticketId") String ticketId) {
     return ticketService.getTicketById(ticketId);
   }
 
   @GetMapping("/all")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public List<Ticket> allTickets() {
     return ticketService.getAllTickets();
   }

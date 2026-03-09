@@ -16,23 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/comments")
 @AllArgsConstructor
+@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_SUPPORT')")
 public class CommentController {
   private final CommentService commentService;
 
   @PostMapping("/create")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public Comment create(@RequestBody Comment comment) {
     return commentService.createComment(comment);
   }
 
   @PutMapping("/update/{commentId}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public Comment update(@RequestBody Comment comment, @PathVariable("commentId") String commentId) {
     return commentService.updateComment(commentId, comment);
   }
 
   @DeleteMapping("/delete/{commentId}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public void delete(@PathVariable("commentId") String commentId) {
     commentService.deleteComment(commentId);
   }
