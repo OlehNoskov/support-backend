@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo:6
     container_name: support-mongo-db
-    restart: always
+    restart: no
     ports:
       - "27017:27017"
     environment:
@@ -11,6 +11,24 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - ./mongo-init:/docker-entrypoint-initdb.d:ro
+      - mongo_data:/data/db
     logging:
       options:
         max-size: 1g
+
+  keycloak:
+    container_name: support-keycloak
+    image: quay.io/keycloak/keycloak:25.0.5
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    command:
+      - start-dev
+
+volumes:
+  keycloak_data:
+  mongo_data:

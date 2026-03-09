@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: support-backend
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/support-app
+      client:
+        registration:
+          client-id: support-backend
+  data:
+    mongodb:
+      uri: mongodb://admin:password@localhost:27017/support-backend
+      database: support-backend
+
+logging:
+  level:
+    org:
+    springframework:
+     security: DEBUG
+
+jwt:
+  auth:
+    converter:
+      resource-id: support-backend
+      principle-attribute: preferred_username

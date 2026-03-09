@@ -34,14 +34,4 @@ public class CommentServiceImpl implements CommentService {
   public void deleteComment(String id) {
     commentRepository.deleteById(id);
   }
-
-  @Override
-  public List<Comment> getAllComments() {
-    return commentRepository.findAll();
-  }
-
-  @Override
-  public Comment getCommentById(String id) {
-    return commentRepository.findById(id).orElse(Comment.builder().build());
-  }
 }

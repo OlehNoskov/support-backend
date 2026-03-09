@@ -3,6 +3,7 @@ package com.nix.education.controller;
 import com.nix.education.persistence.entity.Ticket;
 import com.nix.education.service.TicketService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,33 +21,33 @@ import java.util.List;
 public class TicketController {
   private final TicketService ticketService;
 
-  @PostMapping
-  @RequestMapping("/create")
+  @PostMapping("/create")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket create(@RequestBody Ticket ticket) {
     return ticketService.createTicket(ticket);
   }
 
-  @PutMapping
-  @RequestMapping("/update/{ticketId}")
+  @PutMapping("/update/{ticketId}")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket update(@RequestBody Ticket ticket, @PathVariable("ticketId") String ticketId) {
     return ticketService.updateTicket(ticketId, ticket);
   }
 
-  @DeleteMapping
-  @RequestMapping("/delete/{ticketId}")
+  @DeleteMapping("/delete/{ticketId}")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public void delete(@PathVariable("ticketId") String ticketId) {
     ticketService.deleteTicket(ticketId);
   }
 
-  @GetMapping
-  @RequestMapping("/all")
-  public List<Ticket> allTickets() {
-    return ticketService.getAllTickets();
-  }
-
-  @GetMapping
-  @RequestMapping("/{ticketId}")
+  @GetMapping("/{ticketId}")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
   public Ticket getTicketById(@PathVariable("ticketId") String ticketId) {
     return ticketService.getTicketById(ticketId);
+  }
+
+  @GetMapping("/all")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_SUPPORT')")
+  public List<Ticket> allTickets() {
+    return ticketService.getAllTickets();
   }
 }
